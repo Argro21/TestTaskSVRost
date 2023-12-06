@@ -3,7 +3,7 @@
 let startDate = new Date();
 startDate.setFullYear(startDate.getFullYear() - 5 );
    
-console.log(startDate);
+// console.log(startDate);
 
 Date.prototype.addDays = function(days) { 
     var dat = new Date(this.valueOf()) //дата сегодня
@@ -23,7 +23,11 @@ function getDates(startDate, stopDate) {
 
 var dateArray = getDates(startDate, new Date());
 
-// console.log(dateArray);
+for (i = 0; i < dateArray.length; i++) {
+  dateArray[i] = `${dateArray[i]}` 
+}
+
+// console.log(dateArray[0]);
 
 
 //===
@@ -80,7 +84,8 @@ function randomNextNumberAll(arr) {                //генерирует нек
 
 
 function nextFour(arr) {
-for (let i = 0; i < dateArray.length - 1; i++) {arr[arr.length] = +randomNextNumberAll(arr);
+for (let i = 0; i < dateArray.length - 1; i++) {
+  arr[arr.length] = +randomNextNumberAll(arr);
 }};
 
 nextFour(predpriyatieArr);
@@ -116,7 +121,65 @@ generate(asH, dataasH);
 generate(rost, datarost);
 generate(izm, dataizm);
 
-console.log(dataNBank, dataasH, datarost, dataizm)
+// console.log(dataNBank, dataasH, datarost, dataizm)
+
+// ---------------------------------- [Thu Dec 06 2018 19:29:14 GMT+0300 (Москва, стандартное время)
+
+// ---------------------------------- пробрасывание данных в localstorage
+
+
+
+
+////----===!!!!!!!! не знаю как получить собственное имя массива, поэтому дублирую (3) функцию с именем данных
+function saveDataToLocalStorageNBank(predpriyatie) {
+  predpriyatie.forEach((el, i) => {
+      localStorage.setItem(`NBank ${i}`, JSON.stringify(el))
+  })
+  console.log(`predpriyatie`)
+  console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+};
+saveDataToLocalStorageNBank(dataNBank);
+
+function saveDataToLocalStorageasH(predpriyatie) {
+  predpriyatie.forEach((el, i) => {
+      localStorage.setItem(`asH ${i}`, JSON.stringify(el))
+  })
+  console.log(`predpriyatie`)
+  console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+  };
+saveDataToLocalStorageNBank(asH);
+
+function saveDataToLocalStorageNBank(rost) {
+  predpriyatie.forEach((el, i) => {
+      localStorage.setItem(`rost ${i}`, JSON.stringify(el))
+  })
+  console.log(`predpriyatie`)
+  console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+  };
+saveDataToLocalStorageNBank(rost);
+
+function saveDataToLocalStorageizm(predpriyatie) {
+  predpriyatie.forEach((el, i) => {
+      localStorage.setItem(`izm ${i}`, JSON.stringify(el))
+  })
+  console.log(`predpriyatie`)
+  console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+  };
+saveDataToLocalStorageNBank(izm);
+
+
+
+
+
+
+////----===!!!!!!!!!!!!
+
+
+
+
+
+
+
 
 
 // ---------------------------------- формирование candlestick
@@ -149,3 +212,6 @@ console.log(dataNBank, dataasH, datarost, dataizm)
   
   // initiate drawing the chart
   chart.draw();
+
+
+  
