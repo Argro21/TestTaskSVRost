@@ -3,11 +3,84 @@
     border: 1px solid black;
 } */
 
-html,
-body,
-#container {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+*{
+  font-family: Roboto,sans-serif;
+  box-sizing: border-box;
   padding: 0;
+  margin: 0;
 }
+
+.header {
+  height: 150px;
+  /* width: 90%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10%;
+}
+
+.candlestickMenu {
+  padding: 0 5%;
+}
+
+.tabheader__items {
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 0 auto 0px;
+  padding-left: 20px;
+  /* width: 170vh; */
+}
+
+.tabheader__item {
+  width: 170px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 18px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: .3s all;
+}
+
+.tabheader__item_active {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  border-bottom: 3px solid rgb(11, 84, 167);
+}
+
+#candlestick {
+  /* width: 90%; */
+  height: 70vh;
+  margin: 0 auto;
+  padding-top: 2%;
+  border-top: 2px solid rgb(179, 179, 179);
+  /* padding: 1%; */
+  
+}
+
+/* class="candlestick" */
+
+#container {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%; 
+}
+
+
+
+
+
+
+
+/* chart1.container("containerNBank");
+    chart1.draw();
+    chart2.container("containerasH");
+    chart2.draw();
+    chart3.container("containerrost");
+    chart3.draw();
+    chart4.container("containerizm");
+    chart4.draw(); */
