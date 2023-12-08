@@ -130,14 +130,29 @@ window.addEventListener('DOMContentLoaded', () => {
   
   return data
   
+  }; 
+  
+  function generateData () {
+
+    if (localStorage.getItem("dataNBank 0") === null) {
+      generate(NBank, dataNBank);
+    }
+    if (localStorage.getItem("dataasH 0") === null) {
+      generate(asH, dataasH);
+    }if (localStorage.getItem("datarost 0") === null) {
+      generate(rost, datarost);
+    }if (localStorage.getItem("dataizm 0") === null) {
+      generate(izm, dataizm);
+    }
+      
+      
   };
+
   
-  generate(NBank, dataNBank);
-  generate(asH, dataasH);
-  generate(rost, datarost);
-  generate(izm, dataizm);
+  generateData();
+  console.log(dataNBank, dataasH, datarost, dataizm)
   
-  
+  // console.log(dataNBank, dataasH, datarost, dataizm);
   
   // console.log(dataNBank, dataasH, datarost, dataizm)
   
@@ -156,44 +171,57 @@ window.addEventListener('DOMContentLoaded', () => {
   
   
   ////----===!!!!!!!! не знаю как получить собственное имя массива, поэтому дублирую (3) функцию с именем данных
-  function saveDataToLocalStorageNBank(predpriyatie) {
-    predpriyatie.forEach((el, i) => {
+  function generateLocalStorageFive () {
+
+      function saveDataToLocalStorageNBank(predpriyatie) {
+      predpriyatie.forEach((el, i) => {
         localStorage.setItem(`dataNBank ${i}`, JSON.stringify(el))
-    })
-    console.log(`predpriyatie`)
-    console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
-  };
-  saveDataToLocalStorageNBank(dataNBank);
-  
-  function saveDataToLocalStorageasH(predpriyatie) {
+      })
+      // console.log(`predpriyatie`)
+      // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+    };
+    
+    function saveDataToLocalStorageasH(predpriyatie) {
     predpriyatie.forEach((el, i) => {
         localStorage.setItem(`dataasH ${i}`, JSON.stringify(el))
     })
-    console.log(`predpriyatie`)
-    console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
-    };
-    saveDataToLocalStorageasH(dataasH);
+    // console.log(`predpriyatie`)
+    // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+  };
   
   function saveDataToLocalStoragerost(predpriyatie) {
     predpriyatie.forEach((el, i) => {
-        localStorage.setItem(`datarost ${i}`, JSON.stringify(el))
+      localStorage.setItem(`datarost ${i}`, JSON.stringify(el))
     })
-    console.log(`predpriyatie`)
-    console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
-    };
-    saveDataToLocalStoragerost(datarost);
-  
-  function saveDataToLocalStorageizm(predpriyatie) {
-    predpriyatie.forEach((el, i) => {
+    // console.log(`predpriyatie`)
+    // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+  };
+    
+    function saveDataToLocalStorageizm(predpriyatie) {
+      predpriyatie.forEach((el, i) => {
         localStorage.setItem(`dataizm ${i}`, JSON.stringify(el))
-    })
-    console.log(`predpriyatie`)
-    console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
+      })
+      // console.log(`predpriyatie`)
+      // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
     };
-    saveDataToLocalStorageizm(dataizm);
+
+    if (localStorage.getItem("dataNBank 0") === null) {
+      saveDataToLocalStorageNBank(dataNBank);
+    }
+    if (localStorage.getItem("dataasH 0") === null) {
+      saveDataToLocalStorageasH(dataasH);
+    }if (localStorage.getItem("datarost 0") === null) {
+      saveDataToLocalStoragerost(datarost);
+    }if (localStorage.getItem("dataizm 0") === null) {
+      saveDataToLocalStorageizm(dataizm);    
+    }
+
+
+  };
   
-  
-  
+  generateLocalStorageFive();
+    
+    
   
   
   
@@ -236,29 +264,53 @@ window.addEventListener('DOMContentLoaded', () => {
   
   hideTabContent();
   showTabContent();
-  
+
+  // ------- массив, который выводится в candlestick
+  let dataCandlestick = [];
+
   tabsParent.addEventListener('click', (event) => {
     const target = event.target;
   
     if (target && target.classList.contains('tabheader__item')) {
+
       tabs.forEach((item, i) => {
           if (target == item) {
               hideTabContent();
               showTabContent(i);
           }
-  
+      });
+        
+
+      tabs.forEach((item, i) => {
+          if (target == item && i === 0) {
+            dataCandlestick = [];
+            for (i = 0; i < 1825; i++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${i}`)));
+              // return dataCandlestick;
+            }
+          } else if (target == item && i === 1) {
+            dataCandlestick = [];
+            for (i = 0; i < 1825; i++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${i}`)));
+              // return dataCandlestick;
+            }
+          } else if (target == item && i === 2) {
+            dataCandlestick = [];
+            for (i = 0; i < 1825; i++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${i}`)));
+              // return dataCandlestick;
+            }
+          } else if (target == item && i === 3) {
+            dataCandlestick = [];
+            for (i = 0; i < 1825; i++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${i}`)));
+              // return dataCandlestick;
+            }
+          }
       });
     }
+  console.log(dataCandlestick)
   
-    // if (target && target.classList.contains('tabheader__item')) {
-    //   tabs.forEach((item, i) => {
-    //       if (target == item) {
-    //           hideTabContent();
-    //           showTabContent(i);
-    //       }
-  
-    //   });
-    // }
   });
   
   
@@ -283,25 +335,51 @@ window.addEventListener('DOMContentLoaded', () => {
     //   [Date.UTC(2007, 08, 07), 22.75, 23.7, 22.69, 23.44]
     // ];
     
-    // create a chart
-    chart = anychart.candlestick();
+
+
+  // tabsParent.addEventListener('click', (event) => {
+  //   const target = event.target;
+  //   if (target && target.classList.contains('tabheader__item')) {
+  //     tabs.forEach((item, i) => {
+  //         if (target == item && i === 0) {
+  //           dataCandlestick = [];
+  //           for (i = 0; i < 1825; i++) {
+  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank 0`)))
+  //           }
+  //         } else if (target == item && i === 1) {
+  //           dataCandlestick = [];
+  //           for (i = 0; i < 1825; i++) {
+  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH 0`)))
+  //           }
+  //         } else if (target == item && i === 2) {
+  //           dataCandlestick = [];
+  //           for (i = 0; i < 1825; i++) {
+  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost 0`)))
+  //           }
+  //         } else if (target == item && i === 3) {
+  //           dataCandlestick = [];
+  //           for (i = 0; i < 1825; i++) {
+  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm 0`)))
+  //           }
+  //         }
+
+  //     });
+  //   }
+  // });
+
+ 
     
-    
-    // create a japanese candlestick series and set the data
-    var series = chart.candlestick(dataNBank);
-    
+  // create a chart
+  chart = anychart.candlestick();
+      
+  // create a japanese candlestick series and set the data
+  var series = chart.candlestick(dataCandlestick);
+      
+  // set the container id
+  chart.container("container");
   
-  
-    
-    // set the container id
-    chart.container("container");
-   
-    
-  
-  
-    
-    // initiate drawing the chart
-    chart.draw();
+  // initiate drawing the chart
+  chart.draw();
   
   console.log(tabs[0].textContent);
   
