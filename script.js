@@ -173,33 +173,33 @@ window.addEventListener('DOMContentLoaded', () => {
   ////----===!!!!!!!! не знаю как получить собственное имя массива, поэтому дублирую (3) функцию с именем данных
   function generateLocalStorageFive () {
 
-      function saveDataToLocalStorageNBank(predpriyatie) {
+    function saveDataToLocalStorageNBank(predpriyatie) {
       predpriyatie.forEach((el, i) => {
-        localStorage.setItem(`dataNBank ${i}`, JSON.stringify(el))
-      })
+      localStorage.setItem(`dataNBank ${i}`, JSON.stringify(el))
+    })
       // console.log(`predpriyatie`)
       // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
     };
     
     function saveDataToLocalStorageasH(predpriyatie) {
-    predpriyatie.forEach((el, i) => {
-        localStorage.setItem(`dataasH ${i}`, JSON.stringify(el))
+      predpriyatie.forEach((el, i) => {
+      localStorage.setItem(`dataasH ${i}`, JSON.stringify(el))
     })
     // console.log(`predpriyatie`)
     // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
-  };
+    };
   
-  function saveDataToLocalStoragerost(predpriyatie) {
-    predpriyatie.forEach((el, i) => {
+    function saveDataToLocalStoragerost(predpriyatie) {
+      predpriyatie.forEach((el, i) => {
       localStorage.setItem(`datarost ${i}`, JSON.stringify(el))
     })
     // console.log(`predpriyatie`)
     // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
-  };
+    };
     
     function saveDataToLocalStorageizm(predpriyatie) {
       predpriyatie.forEach((el, i) => {
-        localStorage.setItem(`dataizm ${i}`, JSON.stringify(el))
+      localStorage.setItem(`dataizm ${i}`, JSON.stringify(el))
       })
       // console.log(`predpriyatie`)
       // console.log(JSON.parse(localStorage.getItem(`predpriyatie 0`)))
@@ -207,14 +207,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (localStorage.getItem("dataNBank 0") === null) {
       saveDataToLocalStorageNBank(dataNBank);
-    }
+    };
     if (localStorage.getItem("dataasH 0") === null) {
       saveDataToLocalStorageasH(dataasH);
-    }if (localStorage.getItem("datarost 0") === null) {
+    };
+    if (localStorage.getItem("datarost 0") === null) {
       saveDataToLocalStoragerost(datarost);
-    }if (localStorage.getItem("dataizm 0") === null) {
+    };
+    if (localStorage.getItem("dataizm 0") === null) {
       saveDataToLocalStorageizm(dataizm);    
-    }
+    };
 
 
   };
@@ -253,67 +255,104 @@ window.addEventListener('DOMContentLoaded', () => {
   
   function hideTabContent() {
     tabs.forEach(item => {
-        item.classList.remove('tabheader__item_active')
+      item.classList.remove('tabheader__item_active')
     });
   };
   
   function showTabContent(i = 0) {
-        tabs[i].classList.add('tabheader__item_active')
-  
-  }
+    tabs[i].classList.add('tabheader__item_active')
+  };
   
   hideTabContent();
-  showTabContent();
+  // showTabContent();
 
   // ------- массив, который выводится в candlestick
   let dataCandlestick = [];
 
   tabsParent.addEventListener('click', (event) => {
+    
+
     const target = event.target;
   
     if (target && target.classList.contains('tabheader__item')) {
 
       tabs.forEach((item, i) => {
-          if (target == item) {
-              hideTabContent();
-              showTabContent(i);
-          }
-      });
-        
+        if (target == item) {
+          hideTabContent();
+          showTabContent(i);
 
-      tabs.forEach((item, i) => {
           if (target == item && i === 0) {
             dataCandlestick = [];
-            for (i = 0; i < 1825; i++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${i}`)));
+            for (j = 0; j < 1825; j++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
               // return dataCandlestick;
+              
             }
           } else if (target == item && i === 1) {
             dataCandlestick = [];
-            for (i = 0; i < 1825; i++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${i}`)));
+            for (j = 0; j < 1825; j++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
               // return dataCandlestick;
             }
           } else if (target == item && i === 2) {
             dataCandlestick = [];
-            for (i = 0; i < 1825; i++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${i}`)));
+            for (j = 0; j < 1825; j++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
               // return dataCandlestick;
             }
           } else if (target == item && i === 3) {
             dataCandlestick = [];
-            for (i = 0; i < 1825; i++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${i}`)));
+            for (j = 0; j < 1825; j++) {
+              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
               // return dataCandlestick;
             }
           }
+
+        }
       });
+
+      
+        
+
+      // tabs.forEach((item, i) => {
+        // if (target == item && i === 0) {
+        //   dataCandlestick = [];
+        //   for (j = 0; j < 1825; j++) {
+        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
+        //     // return dataCandlestick;
+            
+        //   }
+        // } else if (target == item && i === 1) {
+        //   dataCandlestick = [];
+        //   for (j = 0; j < 1825; j++) {
+        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
+        //     // return dataCandlestick;
+        //   }
+        // } else if (target == item && i === 2) {
+        //   dataCandlestick = [];
+        //   for (j = 0; j < 1825; j++) {
+        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
+        //     // return dataCandlestick;
+        //   }
+        // } else if (target == item && i === 3) {
+        //   dataCandlestick = [];
+        //   for (j = 0; j < 1825; j++) {
+        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
+        //     // return dataCandlestick;
+        //   }
+        // }
+          
+        // let container = document.querySelector('#container');
+        // container = '<div id="container"></div>';
+        
+
+      // });
+
+      
+
     }
-  console.log(dataCandlestick)
-  
-  });
-  
-  
+
+
   
   
   // ---------------------------------- формирование candlestick
@@ -368,20 +407,28 @@ window.addEventListener('DOMContentLoaded', () => {
   // });
 
  
+    function drawCandlestick(dataCandlestick) {
+      let container = document.querySelector('#container');
+    container.innerHTML = '';
+      // create a chart
+    chart = anychart.candlestick();
+        
+    // create a japanese candlestick series and set the data
+    var series = chart.candlestick(dataCandlestick);
+        
+    // set the container id
+    chart.container("container");
     
-  // create a chart
-  chart = anychart.candlestick();
-      
-  // create a japanese candlestick series and set the data
-  var series = chart.candlestick(dataCandlestick);
-      
-  // set the container id
-  chart.container("container");
-  
-  // initiate drawing the chart
-  chart.draw();
-  
-  console.log(tabs[0].textContent);
+    // initiate drawing the chart
+    chart.draw();
+    
+    console.log(tabs.textContent);
+  };
+    drawCandlestick(dataCandlestick)
+  console.log(dataCandlestick)
+
+  });
+
   
   
   
