@@ -70,6 +70,35 @@
   width: 100%; 
 }
 
+.tabbottom__items {
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 0 auto 0px;
+  padding-left: 20px;
+  /* width: 170vh; */
+}
+
+.tabbottom__item {
+  width: 170px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 18px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: .3s all;
+}
+
+.tabbottom__item_active {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  border-bottom: 3px solid rgb(11, 84, 167);
+}
+
+
 
 
 

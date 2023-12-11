@@ -37,14 +37,14 @@ window.addEventListener('DOMContentLoaded', () => {
     dateArray[i] = `${dateArray[i]}` 
   }
   
+    // console.log(dateArray.length - 1);
+
   // console.log(dateArray);
   
   
-  
-  
-  
-  
-  
+
+
+
   
   //===
   //Генерация массивов на 4 предприятия
@@ -114,6 +114,8 @@ window.addEventListener('DOMContentLoaded', () => {
   
   let dataFirstArr = [];
   // data = [];
+
+
   
   let dataOpenFirst =  +(randomNumber(predpriyatieArr[0] * 0.95, predpriyatieArr[0])).toFixed(2)
   dataFirstArr = [dateArray[data.length], dataOpenFirst, +(randomNumber(predpriyatieArr[data.length], predpriyatieArr[data.length] * 1.05)).toFixed(2), +(randomNumber(predpriyatieArr[data.length] * 0.95, predpriyatieArr[data.length])).toFixed(2), predpriyatieArr[data.length]]
@@ -122,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
   
   // console.log(dataFirstArr); 
   
-  for (i = 0; i < 1825; i++) {
+  for (i = 0; i < dateArray.length; i++) {
   data.push([dateArray[data.length], predpriyatieArr[data.length - 1], +(randomNumber(predpriyatieArr[data.length], predpriyatieArr[data.length] * 1.05)).toFixed(2), +(randomNumber(predpriyatieArr[data.length] * 0.95, predpriyatieArr[data.length])).toFixed(2), predpriyatieArr[data.length]]);
   };
   
@@ -152,6 +154,11 @@ window.addEventListener('DOMContentLoaded', () => {
   generateData();
   console.log(dataNBank, dataasH, datarost, dataizm)
   
+  // console.log(dataNBank.length - 1);
+  // console.log(dataasH.length - 1);
+  // console.log(datarost.length - 1);
+  // console.log(dataizm.length - 1);
+
   // console.log(dataNBank, dataasH, datarost, dataizm);
   
   // console.log(dataNBank, dataasH, datarost, dataizm)
@@ -226,7 +233,25 @@ window.addEventListener('DOMContentLoaded', () => {
     
   
   
+  // let now;
+
+  // function getNow () {
+  //   now = new Date();
+  //   return now
+  // };
+
+  // getNow()
   
+  // let nowHour = +now.getHours();
+  // let nowMin = +now.getMinutes();
+
+  // console.log(now);
+  // console.log(nowHour, nowMin);
+  
+  // let hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+  // console.log(hhmm)
+
+  // if ('')
   
   
   
@@ -235,9 +260,25 @@ window.addEventListener('DOMContentLoaded', () => {
   
   
   
+  // фцункция отрисовки
   
-  
-  
+  function drawCandlestick(dataCandlestick) {
+    let container = document.querySelector('#container');
+    container.innerHTML = '';
+    // create a chart
+    chart = anychart.candlestick();
+        
+    // create a japanese candlestick series and set the data
+    var series = chart.candlestick(dataCandlestick);
+        
+    // set the container id
+    chart.container("container");
+    
+    // initiate drawing the chart
+    chart.draw();
+    
+    // console.log(tabs);
+  };
   
   
   
@@ -252,6 +293,8 @@ window.addEventListener('DOMContentLoaded', () => {
   
   const tabs = document.querySelectorAll('.tabheader__item');
   const tabsParent = document.querySelector('.tabheader__items');
+  const tabsBottom = document.querySelectorAll('.tabbottom__item');
+  const tabsBottomParent = document.querySelector('.tabbottom__items');
   
   function hideTabContent() {
     tabs.forEach(item => {
@@ -266,8 +309,42 @@ window.addEventListener('DOMContentLoaded', () => {
   hideTabContent();
   // showTabContent();
 
+
+  function hideTabBottomContent() {
+    tabsBottom.forEach(item => {
+      item.classList.remove('tabbottom__item_active')
+    });
+  };
+  
+  function showTabBottomContent(i = 0) {
+    tabsBottom[i].classList.add('tabbottom__item_active')
+  };
+  
+  hideTabBottomContent();
+  showTabBottomContent();
+
   // ------- массив, который выводится в candlestick
   let dataCandlestick = [];
+
+
+  tabsBottomParent.addEventListener('click', (eventBot) => {
+    
+
+    const targetBot = eventBot.target;
+
+    if (targetBot && targetBot.classList.contains('tabbottom__item')) {
+
+      tabsBottom.forEach((item, i) => {
+
+        if (targetBot == item) {
+          hideTabBottomContent();
+          showTabBottomContent(i);
+        } 
+
+      })
+    }
+  });
+  
 
   tabsParent.addEventListener('click', (event) => {
     
@@ -283,26 +360,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
           if (target == item && i === 0) {
             dataCandlestick = [];
-            for (j = 0; j < 1825; j++) {
+            for (j = 0; j < dateArray.length; j++) {
               dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
               // return dataCandlestick;
               
             }
           } else if (target == item && i === 1) {
             dataCandlestick = [];
-            for (j = 0; j < 1825; j++) {
+            for (j = 0; j < dateArray.length; j++) {
               dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
               // return dataCandlestick;
             }
           } else if (target == item && i === 2) {
             dataCandlestick = [];
-            for (j = 0; j < 1825; j++) {
+            for (j = 0; j < dateArray.length; j++) {
               dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
               // return dataCandlestick;
             }
           } else if (target == item && i === 3) {
             dataCandlestick = [];
-            for (j = 0; j < 1825; j++) {
+            for (j = 0; j < dateArray.length; j++) {
               dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
               // return dataCandlestick;
             }
@@ -310,43 +387,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         }
       });
-
-      
-        
-
-      // tabs.forEach((item, i) => {
-        // if (target == item && i === 0) {
-        //   dataCandlestick = [];
-        //   for (j = 0; j < 1825; j++) {
-        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
-        //     // return dataCandlestick;
-            
-        //   }
-        // } else if (target == item && i === 1) {
-        //   dataCandlestick = [];
-        //   for (j = 0; j < 1825; j++) {
-        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
-        //     // return dataCandlestick;
-        //   }
-        // } else if (target == item && i === 2) {
-        //   dataCandlestick = [];
-        //   for (j = 0; j < 1825; j++) {
-        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
-        //     // return dataCandlestick;
-        //   }
-        // } else if (target == item && i === 3) {
-        //   dataCandlestick = [];
-        //   for (j = 0; j < 1825; j++) {
-        //     dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
-        //     // return dataCandlestick;
-        //   }
-        // }
-          
-        // let container = document.querySelector('#container');
-        // container = '<div id="container"></div>';
-        
-
-      // });
 
       
 
@@ -358,78 +398,15 @@ window.addEventListener('DOMContentLoaded', () => {
   // ---------------------------------- формирование candlestick
   
   
-  // create data               open,  high,  low,   close
-  // var data = [
-    //   [Date.UTC(2007, 07, 23), 23.55, 23.88, 23.38, 23.62],
-    //   [Date.UTC(2007, 07, 24), 22.65, 23.7, 22.65, 23.36],
-    //   [Date.UTC(2007, 07, 25), 22.75, 23.7, 22.69, 23.44],
-    //   [Date.UTC(2007, 07, 26), 23.2, 23.39, 22.87, 22.92],
-    //   [Date.UTC(2007, 07, 27), 23.98, 24.49, 23.47, 23.49],
-    //   [Date.UTC(2007, 07, 30), 23.55, 23.88, 23.38, 23.62],
-    //   [Date.UTC(2007, 07, 31), 23.88, 23.93, 23.24, 23.25],
-    //   [Date.UTC(2007, 08, 01), 23.17, 23.4, 22.85, 23.25],
-    //   [Date.UTC(2007, 08, 02), 22.65, 23.7, 22.65, 23.36],
-    //   [Date.UTC(2007, 08, 03), 23.2, 23.39, 22.87, 22.92],
-    //   [Date.UTC(2007, 08, 06), 23.03, 23.15, 22.44, 22.97],
-    //   [Date.UTC(2007, 08, 07), 22.75, 23.7, 22.69, 23.44]
-    // ];
-    
-
-
-  // tabsParent.addEventListener('click', (event) => {
-  //   const target = event.target;
-  //   if (target && target.classList.contains('tabheader__item')) {
-  //     tabs.forEach((item, i) => {
-  //         if (target == item && i === 0) {
-  //           dataCandlestick = [];
-  //           for (i = 0; i < 1825; i++) {
-  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank 0`)))
-  //           }
-  //         } else if (target == item && i === 1) {
-  //           dataCandlestick = [];
-  //           for (i = 0; i < 1825; i++) {
-  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH 0`)))
-  //           }
-  //         } else if (target == item && i === 2) {
-  //           dataCandlestick = [];
-  //           for (i = 0; i < 1825; i++) {
-  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost 0`)))
-  //           }
-  //         } else if (target == item && i === 3) {
-  //           dataCandlestick = [];
-  //           for (i = 0; i < 1825; i++) {
-  //             dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm 0`)))
-  //           }
-  //         }
-
-  //     });
-  //   }
-  // });
-
  
-    function drawCandlestick(dataCandlestick) {
-      let container = document.querySelector('#container');
-    container.innerHTML = '';
-      // create a chart
-    chart = anychart.candlestick();
-        
-    // create a japanese candlestick series and set the data
-    var series = chart.candlestick(dataCandlestick);
-        
-    // set the container id
-    chart.container("container");
     
-    // initiate drawing the chart
-    chart.draw();
     
-    console.log(tabs.textContent);
-  };
     drawCandlestick(dataCandlestick)
-  console.log(dataCandlestick)
+    console.log(dataCandlestick)
 
   });
 
-  
+
   
   
   });
