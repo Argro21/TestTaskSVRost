@@ -124,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
   
   // console.log(dataFirstArr); 
   
-  for (i = 0; i < dateArray.length; i++) {
+  for (i = 0; i < dateArray.length - 1; i++) {
   data.push([dateArray[data.length], predpriyatieArr[data.length - 1], +(randomNumber(predpriyatieArr[data.length], predpriyatieArr[data.length] * 1.05)).toFixed(2), +(randomNumber(predpriyatieArr[data.length] * 0.95, predpriyatieArr[data.length])).toFixed(2), predpriyatieArr[data.length]]);
   };
   
@@ -163,11 +163,61 @@ window.addEventListener('DOMContentLoaded', () => {
   
   // console.log(dataNBank, dataasH, datarost, dataizm)
   
+
+
+  //------------------------------ генерация данных за день
   
   
   
+  // let now;
+
+  // function getNow () {
+  //   now = new Date();
+  //   return now
+  // };
+
+  // getNow()
   
+  // let nowHour = +now.getHours();
+  // let nowMin = +now.getMinutes();
+
+  // console.log(now);
+  // console.log(nowHour, nowMin);
   
+  let hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+  let hh = new Date().toLocaleTimeString('ru', { hour: '2-digit'});
+  let mm = new Date().toLocaleTimeString('ru', {minute: '2-digit' });
+  console.log(hhmm)
+  setInterval(function(hhmm) {
+    hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+    hh = new Date().toLocaleTimeString('ru', { hour: '2-digit'});
+    mm = new Date().toLocaleTimeString('ru', {minute: '2-digit' });
+    // console.log(hhmm);
+    // console.log(hh);
+    // console.log(mm);
+  }, 1000)
+
+  let dayData;
+
+  function generateDayData () {
+    if (0 <= hh <= 11 && 0 <= mm <= 59 && !localStorage.getItem(`dataNBank 00`)) {
+      
+    } else if (12 <= hh < 13 && 0 <= mm <= 59) {
+      
+    } else if (13 <= hh < 14 && 0 <= mm <= 59) {
+
+    } else if (14 <= hh < 15 && 0 <= mm <= 59) {
+      
+    } else if (15 <= hh < 16 && 0 <= mm <= 59) {
+      
+    } else if (16 <= hh < 17 && 0 <= mm <= 59) {
+      
+    } else if (17 <= hh <= 23 && 0 <= mm <= 59 && !localStorage.getItem(`dataNBank 00`)) {
+
+    }
+  };
+
+  // if ('')
   
   
   // ---------------------------------- [Thu Dec 06 2018 19:29:14 GMT+0300 (Москва, стандартное время)
@@ -233,25 +283,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
   
   
-  // let now;
 
-  // function getNow () {
-  //   now = new Date();
-  //   return now
-  // };
-
-  // getNow()
-  
-  // let nowHour = +now.getHours();
-  // let nowMin = +now.getMinutes();
-
-  // console.log(now);
-  // console.log(nowHour, nowMin);
-  
-  // let hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
-  // console.log(hhmm)
-
-  // if ('')
   
   
   
@@ -354,38 +386,120 @@ window.addEventListener('DOMContentLoaded', () => {
     if (target && target.classList.contains('tabheader__item')) {
 
       tabs.forEach((item, i) => {
-        if (target == item) {
-          hideTabContent();
-          showTabContent(i);
 
-          if (target == item && i === 0) {
-            dataCandlestick = [];
-            for (j = 0; j < dateArray.length; j++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
-              // return dataCandlestick;
-              
+        // if (tabsBottom[0].classList.contains("tabbottom__item_active")) {
+        //   if (target == item) {
+        //     hideTabContent();
+        //     showTabContent(i);
+            
+        //     if (target == item && i === 0) {
+        //       dataCandlestick = [];
+        //       for (j = dateArray.length; j >= dateArray.length - 30; j--) {
+        //         dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
+        //         // return dataCandlestick;
+                
+        //       }
+        //     } else if (target == item && i === 1) {
+        //       dataCandlestick = [];
+        //       for (j = dateArray.length; j >= dateArray.length - 30; j--) {
+        //         dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
+        //         // return dataCandlestick;
+        //       }
+        //     } else if (target == item && i === 2) {
+        //       dataCandlestick = [];
+        //       for (j = dateArray.length; j >= dateArray.length - 30; j--) {
+        //         dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
+        //         // return dataCandlestick;
+        //       }
+        //     } else if (target == item && i === 3) {
+        //       dataCandlestick = [];
+        //       for (j = dateArray.length; j >= dateArray.length - 30; j--) {
+        //         dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
+        //         // return dataCandlestick;
+        //       }
+        //     }
+
+        //   }
+        // }
+
+
+
+
+
+        if (tabsBottom[1].classList.contains("tabbottom__item_active")) {
+          if (target == item) {
+            hideTabContent();
+            showTabContent(i);
+            
+            if (target == item && i === 0) {
+              dataCandlestick = [];
+              for (j = dateArray.length - 1; j >= dateArray.length - 30; j--) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
+                // return dataCandlestick;
+                
+              }
+            } else if (target == item && i === 1) {
+              dataCandlestick = [];
+              for (j = dateArray.length - 1; j >= dateArray.length - 30; j--) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
+                // return dataCandlestick;
+              }
+            } else if (target == item && i === 2) {
+              dataCandlestick = [];
+              for (j = dateArray.length - 1; j >= dateArray.length - 30; j--) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
+                // return dataCandlestick;
+              }
+            } else if (target == item && i === 3) {
+              dataCandlestick = [];
+              for (j = dateArray.length - 1; j >= dateArray.length - 30; j--) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
+                // return dataCandlestick;
+              }
             }
-          } else if (target == item && i === 1) {
-            dataCandlestick = [];
-            for (j = 0; j < dateArray.length; j++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
-              // return dataCandlestick;
-            }
-          } else if (target == item && i === 2) {
-            dataCandlestick = [];
-            for (j = 0; j < dateArray.length; j++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
-              // return dataCandlestick;
-            }
-          } else if (target == item && i === 3) {
-            dataCandlestick = [];
-            for (j = 0; j < dateArray.length; j++) {
-              dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
-              // return dataCandlestick;
-            }
+
           }
-
         }
+
+
+
+
+        if (tabsBottom[2].classList.contains("tabbottom__item_active")) {
+          if (target == item) {
+            hideTabContent();
+            showTabContent(i);
+            
+            if (target == item && i === 0) {
+              dataCandlestick = [];
+              for (j = 0; j < dateArray.length - 1; j++) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`dataNBank ${j}`)));
+                // return dataCandlestick;
+                
+              }
+            } else if (target == item && i === 1) {
+              dataCandlestick = [];
+              for (j = 0; j < dateArray.length - 1; j++) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`dataasH ${j}`)));
+                // return dataCandlestick;
+              }
+            } else if (target == item && i === 2) {
+              dataCandlestick = [];
+              for (j = 0; j < dateArray.length - 1; j++) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`datarost ${j}`)));
+                // return dataCandlestick;
+              }
+            } else if (target == item && i === 3) {
+              dataCandlestick = [];
+              for (j = 0; j < dateArray.length - 1; j++) {
+                dataCandlestick.push(JSON.parse(localStorage.getItem(`dataizm ${j}`)));
+                // return dataCandlestick;
+              }
+            }
+
+          }
+        }
+
+        
       });
 
       
