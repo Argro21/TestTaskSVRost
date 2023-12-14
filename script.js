@@ -184,38 +184,14 @@ window.addEventListener('DOMContentLoaded', () => {
   // console.log(now);
   // console.log(nowHour, nowMin);
   
-  let hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
-  let hh = new Date().toLocaleTimeString('ru', { hour: '2-digit'});
-  let mm = new Date().toLocaleTimeString('ru', {minute: '2-digit' });
-  console.log(hhmm)
-  setInterval(function(hhmm) {
-    hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
-    hh = new Date().toLocaleTimeString('ru', { hour: '2-digit'});
-    mm = new Date().toLocaleTimeString('ru', {minute: '2-digit' });
-    // console.log(hhmm);
-    // console.log(hh);
-    // console.log(mm);
-  }, 1000)
 
-  let dayData;
 
-  function generateDayData () {
-    if (0 <= hh <= 11 && 0 <= mm <= 59 && !localStorage.getItem(`dataNBank 00`)) {
-      
-    } else if (12 <= hh < 13 && 0 <= mm <= 59) {
-      
-    } else if (13 <= hh < 14 && 0 <= mm <= 59) {
+  // let dayData;
 
-    } else if (14 <= hh < 15 && 0 <= mm <= 59) {
-      
-    } else if (15 <= hh < 16 && 0 <= mm <= 59) {
-      
-    } else if (16 <= hh < 17 && 0 <= mm <= 59) {
-      
-    } else if (17 <= hh <= 23 && 0 <= mm <= 59 && !localStorage.getItem(`dataNBank 00`)) {
 
-    }
-  };
+
+  
+
 
   // if ('')
   
@@ -280,15 +256,168 @@ window.addEventListener('DOMContentLoaded', () => {
   
   generateLocalStorageFive();
     
+
+  let dateLastDay = JSON.parse(localStorage.getItem(`dataNBank ${dateArray.length - 1}`))[0];
+  let openLastDay = JSON.parse(localStorage.getItem(`dataNBank ${dateArray.length - 1}`))[1];
+  // let highLastDay = JSON.parse(localStorage.getItem(`dataNBank ${dateArray.length - 1}`))[2];
+  // let lowLastDay = JSON.parse(localStorage.getItem(`dataNBank ${dateArray.length - 1}`))[3];
+  let closeLastDay = JSON.parse(localStorage.getItem(`dataNBank ${dateArray.length - 1}`))[4];
+  let lastDayArr = [];
+  let todayArr;
+  function generateLastDayArr() {
+
+    function randomNumber(min, max) {
+      return Math.random() * (max - min) + min;
+    };
+
     
+    
+    lastDayArr[0] = [];
+    lastDayArr[1] = [];
+    lastDayArr[2] = [];
+    lastDayArr[3] = [];
+    lastDayArr[4] = [];
+    lastDayArr[5] = [];
+    // lastDayArr[6] = [];
+
+
+    function genLastDayArr() {
+
+      lastDayArr[0][0] = `${dateLastDay.substring(0, 15)} 12:00:00 ${dateLastDay.substring(25)}`;
+      lastDayArr[0][1] = openLastDay;
+      lastDayArr[0][2] = +(randomNumber(openLastDay, openLastDay * 1.02)).toFixed(2);
+      lastDayArr[0][3] = +(randomNumber(openLastDay * 0.98, openLastDay)).toFixed(2);
+      lastDayArr[0][4] = +(randomNumber(openLastDay * 0.98, openLastDay * 1.02)).toFixed(2);
+
+      for (i = 1; i < 5; i ++) {
+        lastDayArr[i][0] = `${dateLastDay.substring(0, 15)} 1${2 + i}:00:00 ${dateLastDay.substring(25)}`;
+        lastDayArr[i][1] = lastDayArr[i-1][4];
+        lastDayArr[i][2] = +(randomNumber(lastDayArr[i-1][4], lastDayArr[i-1][4] * 1.02)).toFixed(2);
+        lastDayArr[i][3] = +(randomNumber(lastDayArr[i-1][4] * 0.98, lastDayArr[i-1][4])).toFixed(2);
+        lastDayArr[i][4] = +(randomNumber(lastDayArr[i-1][4] * 0.98, lastDayArr[i-1][4] * 1.02)).toFixed(2);
+      };
+    } 
+    genLastDayArr ();
+
+    function genLastDay5 () {
+      lastDayArr[5][0] = `${dateLastDay.substring(0, 15)} 17:00:00 ${dateLastDay.substring(25)}`;
+      lastDayArr[5][1] = lastDayArr[4][4];
+      lastDayArr[5][2] = +(randomNumber(lastDayArr[4][4], lastDayArr[4][4] * 1.02)).toFixed(2);
+      lastDayArr[5][3] = +(randomNumber(lastDayArr[4][4] * 0.98, lastDayArr[4][4])).toFixed(2);
+      lastDayArr[5][4] = closeLastDay;
+    }
+    // крч надо сделать так, чтобы меньше 2 проц была разница между массивами. сейчас почему-то это не проверяется. потом надо сделать тудэй, прокинуть его в дэй||прокинуть в дэй ласт дэй, если у нас не 12-17
+    if (((closeLastDay - lastDayArr[4][4]) >= 0.02)) {
+      genLastDay5()
+      genLastDayArr ()
+    } else {
+      genLastDay5()
+    };
+    return lastDayArr;
+  };
+
   
+  function generateTodayArr () {
+    todayArr[0] = [];
+    todayArr[1] = [];
+    todayArr[2] = [];
+    todayArr[3] = [];
+    todayArr[4] = [];
+    todayArr[5] = [];
+  }
+  // while (!lastDayArr[5]) {
+  //   generateLastDayArr();
+  // }
+
+  // console.log(lastDayArr) 
+
+  let hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+  let hh = new Date().toLocaleTimeString('ru', { hour: '2-digit'});
+  let mm = new Date().toLocaleTimeString('ru', {minute: '2-digit' });
+  console.log(hhmm)
+
+  let dayArr;
+
+  setInterval(function(hhmm) {
+    hhmm = new Date().toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+    hh = new Date().toLocaleTimeString('ru', { hour: '2-digit'});
+    mm = new Date().toLocaleTimeString('ru', {minute: '2-digit' });
+    // console.log(hhmm);
+    // console.log(hh);
+    // console.log(mm);
+  }, 1000)
+
+  function reloadTime() {
+    if (0 <= hh <= 11 && 0 <= mm <= 59 && !lastDayArr) {
+      while (!lastDayArr[5]) {
+        generateLastDayArr();
+      };
+
+      dayArr = lastDayArr;
+      console.log(dayArr)
+
+    // } else if (hh == 12 && mm == 0) {
+        
+    // } else if (12 <= hh < 13 && 0 <= mm <= 59) {
+      
+    // } else if (13 <= hh < 14 && 0 <= mm <= 59) {
+
+    // } else if (14 <= hh < 15 && 0 <= mm <= 59) {
+      
+    // } else if (15 <= hh < 16 && 0 <= mm <= 59) {
+      
+    // } else if (16 <= hh < 17 && 0 <= mm <= 59) {
+      
+    } else if (17 <= hh <= 23 && 0 <= mm <= 59 && /*!localStorage.getItem(`dataNBank 00`)*/ lastDayArr.length == 0) {
+      while (!lastDayArr[5]) {
+        generateLastDayArr();
+        // console.log(lastDayArr[4][4])
+        // console.log(closeLastDay)
+      };
+
+      dayArr = lastDayArr;
+      console.log(dayArr)
+    }
+  }
+  // console.log(lastDayArr.length) 
+
+  reloadTime();
   
+
+
+
+
+  //     // function randomNextNumber(arr) {                                          // генерирует некс число с разницей не больше 2 % и суммой в arr не больше 5%    // пока не юзается
+  //     //   let diapMin = (arr[arr.length - 1]) * 0.98;
+  //     //   let diapMax = (arr[arr.length - 1]) * 1.02;
+  //     //   let nextNumber = +randomNumber(diapMin, diapMax).toFixed(2);
+  //     //   if (0.5 < ((nextNumber + arr.reduce(
+  //     //     (acc, prev) => acc + prev
+  //     //   ))/(arr[0])) || ((nextNumber + arr.reduce(
+  //     //     (acc, prev) => acc + prev
+  //     //   ))/(arr[0])) < -0.05) {
+  //     //     nextNumber = (+randomNumber(diapMin, diapMax).toFixed(2));
+  //     //   }
+  //     //   return nextNumber;
+  //     // };
+  
+  //     // // let next = randomNextNumber();
+
+
+  //     //ниже не юзабельно, для проверки
+  //     // console.log(`${localStorage.getItem('dataNBank 1').substring(0, 17)} 12:00:00 ${localStorage.getItem('dataNBank 1').substring(26)}`)
+  //     // console.log(JSON.parse(localStorage.getItem('dataNBank 1'))[0]);
+  //     // console.log(`${JSON.parse(localStorage.getItem('dataNBank 1'))[0].substring(0, 15)} 12:00:00 ${JSON.parse(localStorage.getItem('dataNBank 1'))[0].substring(25)}`)
+  //----
+
+  
+
+
 
   
   
   
   ////----===!!!!!!!!!!!!
-  
   
   
   
@@ -516,11 +645,10 @@ window.addEventListener('DOMContentLoaded', () => {
     
     
     drawCandlestick(dataCandlestick)
-    console.log(dataCandlestick)
+    
 
   });
 
 
-  
   
   });
