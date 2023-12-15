@@ -337,7 +337,7 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
         lastDayArr[0][2] = +(randomNumber(openLastDay * (1 - difference), openLastDay * (1 + difference))).toFixed(2);
         lastDayArr[0][3] = +(randomNumber(openLastDay * (1 - difference) * (1 - difference), openLastDay)).toFixed(2);
-        lastDayArr[0][4] = +(randomNumber(openLastDay * (1 - difference), openLastDay)).toFixed(2);
+        lastDayArr[0][4] = +(randomNumber(openLastDay * (1 - difference), openLastDay)).toFixed(2); /* !!!!!!!!!  возможно тут ошибка в openLastDay (<== тут)) * (1 - difference)*/
       };
       
       for (i = 1; i < 5; i ++) {
